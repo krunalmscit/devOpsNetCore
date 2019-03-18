@@ -1,0 +1,11 @@
+C:\Krunal\devOps\NetCoreRepo\NetCoreSampleAPP\MonerisTransactionBAL\bin\Debug\netcoreapp2.1\MonerisTransactionBAL.deps.json
+C:\Krunal\devOps\NetCoreRepo\NetCoreSampleAPP\MonerisTransactionBAL\bin\Debug\netcoreapp2.1\MonerisTransactionBAL.dll
+C:\Krunal\devOps\NetCoreRepo\NetCoreSampleAPP\MonerisTransactionBAL\bin\Debug\netcoreapp2.1\MonerisTransactionBAL.pdb
+C:\Krunal\devOps\NetCoreRepo\NetCoreSampleAPP\MonerisTransactionBAL\bin\Debug\netcoreapp2.1\eSELECTplus_dotNet_API.dll
+C:\Krunal\devOps\NetCoreRepo\NetCoreSampleAPP\MonerisTransactionBAL\obj\Debug\netcoreapp2.1\MonerisTransactionBAL.csprojAssemblyReference.cache
+C:\Krunal\devOps\NetCoreRepo\NetCoreSampleAPP\MonerisTransactionBAL\obj\Debug\netcoreapp2.1\MonerisTransactionBAL.csproj.CoreCompileInputs.cache
+C:\Krunal\devOps\NetCoreRepo\NetCoreSampleAPP\MonerisTransactionBAL\obj\Debug\netcoreapp2.1\MonerisTransactionBAL.AssemblyInfoInputs.cache
+C:\Krunal\devOps\NetCoreRepo\NetCoreSampleAPP\MonerisTransactionBAL\obj\Debug\netcoreapp2.1\MonerisTransactionBAL.AssemblyInfo.cs
+C:\Krunal\devOps\NetCoreRepo\NetCoreSampleAPP\MonerisTransactionBAL\obj\Debug\netcoreapp2.1\MonerisTransactionBAL.csproj.CopyComplete
+C:\Krunal\devOps\NetCoreRepo\NetCoreSampleAPP\MonerisTransactionBAL\obj\Debug\netcoreapp2.1\MonerisTransactionBAL.dll
+C:\Krunal\devOps\NetCoreRepo\NetCoreSampleAPP\MonerisTransactionBAL\obj\Debug\netcoreapp2.1\MonerisTransactionBAL.pdb
