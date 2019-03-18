@@ -1,0 +1,11 @@
+C:\Krunal\devOps\NetCoreRepo\NetCoreSampleAPP\TransactionTest\bin\Debug\netcoreapp2.0\TransactionTest.deps.json
+C:\Krunal\devOps\NetCoreRepo\NetCoreSampleAPP\TransactionTest\bin\Debug\netcoreapp2.0\TransactionTest.runtimeconfig.json
+C:\Krunal\devOps\NetCoreRepo\NetCoreSampleAPP\TransactionTest\bin\Debug\netcoreapp2.0\TransactionTest.runtimeconfig.dev.json
+C:\Krunal\devOps\NetCoreRepo\NetCoreSampleAPP\TransactionTest\bin\Debug\netcoreapp2.0\TransactionTest.dll
+C:\Krunal\devOps\NetCoreRepo\NetCoreSampleAPP\TransactionTest\obj\Debug\netcoreapp2.0\TransactionTest.csprojAssemblyReference.cache
+C:\Krunal\devOps\NetCoreRepo\NetCoreSampleAPP\TransactionTest\obj\Debug\netcoreapp2.0\TransactionTest.csproj.CoreCompileInputs.cache
+C:\Krunal\devOps\NetCoreRepo\NetCoreSampleAPP\TransactionTest\obj\Debug\netcoreapp2.0\TransactionTest.AssemblyInfoInputs.cache
+C:\Krunal\devOps\NetCoreRepo\NetCoreSampleAPP\TransactionTest\obj\Debug\netcoreapp2.0\TransactionTest.AssemblyInfo.cs
+C:\Krunal\devOps\NetCoreRepo\NetCoreSampleAPP\TransactionTest\bin\Debug\netcoreapp2.0\TransactionTest.pdb
+C:\Krunal\devOps\NetCoreRepo\NetCoreSampleAPP\TransactionTest\obj\Debug\netcoreapp2.0\TransactionTest.dll
+C:\Krunal\devOps\NetCoreRepo\NetCoreSampleAPP\TransactionTest\obj\Debug\netcoreapp2.0\TransactionTest.pdb

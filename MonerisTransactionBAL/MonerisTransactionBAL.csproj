@@ -1,0 +1,21 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.2</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Folder Include="ExternalDLL\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="System.Data.SqlClient" Version="4.7.0-preview3.19128.7" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="eSELECTplus_dotNet_API">
+      <HintPath>ExternalDLL\eSELECTplus_dotNet_API.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+</Project>
