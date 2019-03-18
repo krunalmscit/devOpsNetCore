@@ -1,0 +1,33 @@
+pipeline{
+    agent any
+    environment {
+        dotnet = '/usr/bin/dotnet'
+    }
+    stages{
+        stage('checkout')
+        {
+            steps{
+                git credentialsId: 'Krunal GIt hub User ', url: 'https://github.com/krunalmscit/devOpsNetCore.git', branch: 'master'
+            }
+        }
+        
+            stage('Restore Packages') {
+             steps {
+              sh "dotnet restore"
+             }
+            }
+            
+            stage('Clean') {
+             steps {
+              sh "dotnet clean"
+             }
+            }
+            
+            
+            stage('Build') {
+             steps {
+              sh "dotnet build --configuration Release"
+             }
+            }
+        }
+}
