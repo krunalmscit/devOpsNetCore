@@ -98,7 +98,7 @@ namespace MonerisTransactionBAL
         public string GooglePay_Signature { get; internal set; }
         public string GooglePay_protocolVersion { get; internal set; }
         public string GooglePay_signedmessage { get; internal set; }
-        public GooglePay_PaymentToken googlePay_PaymentToken { get; internal set; }
+        public GooglePay_PaymentToken googlePay_PaymentToken { get;  set; }
 
         public TransactionBase()
         {
@@ -130,15 +130,15 @@ namespace MonerisTransactionBAL
         //    //CrtpyType = "7";
         //    CVD = "123";
         //}
-
+        public class GooglePay_PaymentToken
+        {
+            public string signature { get; set; }
+            public string protocolVersion { get; set; }
+            public string signedMessage { get; set; }
+        }
     }
 
-    public class GooglePay_PaymentToken
-    {
-        public string signature { get; set; }
-        public string protocolVersion { get; set; }
-        public string signedMessage { get; set; }
-    }
+    
 
     public class Apple_TokenOriginator
     {
