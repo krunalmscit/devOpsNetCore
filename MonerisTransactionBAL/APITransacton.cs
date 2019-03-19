@@ -252,6 +252,22 @@ namespace MonerisTransactionBAL
                     applePurchase.SetHeader(t.Apple_PublicKeyHash, t.Apple_EphemeralPublicKey, t.Apple_TransactionId);
                     mpgReq.SetTransaction(applePurchase);
                     break;
+                case TransactionType.GooglePayPurchase:
+                    GooglePayPurchase googlePurchase = new GooglePayPurchase();
+                    googlePurchase.SetCustId(t.CustId);
+                    googlePurchase.SetNetwork("");
+                    googlePurchase.SetOrderId(t.OrderId);
+                    googlePurchase.SetPaymentToken(t.googlePay_PaymentToken.signature, t.googlePay_PaymentToken.protocolVersion, t.googlePay_PaymentToken.signedMessage);
+                    mpgReq.SetTransaction(googlePurchase);
+                    break;
+                case TransactionType.GooglePayPreAuth:
+                    GooglePayPurchase googlePreauth = new GooglePayPurchase();
+                    googlePreauth.SetCustId(t.CustId);
+                    googlePreauth.SetNetwork("Rogers");
+                    googlePreauth.SetOrderId(t.OrderId);
+                    googlePreauth.SetPaymentToken(t.GooglePay_Signature, t.GooglePay_protocolVersion, t.GooglePay_signedmessage);
+                    mpgReq.SetTransaction(googlePreauth);
+                    break;
             }
             try
             {

@@ -49,7 +49,9 @@ namespace MonerisTransactionBAL
             VaultAddCC = 32, 
             KountInquiry = 33,
             KountUpdate = 34,
-            ApplePayPurchase = 35
+            ApplePayPurchase = 35,
+            GooglePayPurchase = 36,
+            GooglePayPreAuth = 37
         }
 
         //public string StoreID { get; set; }
@@ -92,6 +94,11 @@ namespace MonerisTransactionBAL
         public string Apple_PublicKeyHash { get; internal set; }
         public string Apple_EphemeralPublicKey { get; internal set; }
         public string Apple_TransactionId { get; internal set; }
+        public Apple_TokenOriginator Apple_TokenOriginatore { get; internal set; }
+        public string GooglePay_Signature { get; internal set; }
+        public string GooglePay_protocolVersion { get; internal set; }
+        public string GooglePay_signedmessage { get; internal set; }
+        public GooglePay_PaymentToken googlePay_PaymentToken { get; internal set; }
 
         public TransactionBase()
         {
@@ -124,5 +131,18 @@ namespace MonerisTransactionBAL
         //    CVD = "123";
         //}
 
+    }
+
+    public class GooglePay_PaymentToken
+    {
+        public string signature { get; set; }
+        public string protocolVersion { get; set; }
+        public string signedMessage { get; set; }
+    }
+
+    public class Apple_TokenOriginator
+    {
+        public string originatorstoreID;
+        public string originatoreAPIToken;
     }
 }
