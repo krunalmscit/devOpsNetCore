@@ -8,7 +8,7 @@ pipeline {
             parallel {
                 stage('Test On Windows') {
                     agent {
-                        label "windows"
+                        label "Jenkins_dotnetCore_Linux"
                     }
                     steps {
                         bat "run-tests.bat"
@@ -21,7 +21,7 @@ pipeline {
                 }
                 stage('Test On Linux') {
                     agent {
-                        label "linux"
+                        label "Jenkins_dotnetCore_Linux"
                     }
                     steps {
                         sh "run-tests.sh"
