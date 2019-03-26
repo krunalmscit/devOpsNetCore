@@ -13,7 +13,7 @@ pipeline {
             parallel {
                 stage('Test On Windows') {
                     agent {
-                        label "Jenkins_dotnetCore_Linux"
+                        label "Jenkins_dotnetCore_windows"
                     }
                     steps {
                         bat "dotnet restore"
