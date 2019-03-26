@@ -4,6 +4,11 @@ pipeline {
         dotnet = '/usr/bin/dotnet'
     }
     stages {
+        stage('checkout'){
+            steps{
+                git credentialsId: 'Krunal GIt hub User ', url: 'https://github.com/krunalmscit/devOpsNetCore.git', branch: 'master'
+            }
+        }
         stage('Run Tests') {
             parallel {
                 stage('Test On Windows') {
@@ -11,12 +16,9 @@ pipeline {
                         label "Jenkins_dotnetCore_Linux"
                     }
                     steps {
-                        bat "run-tests.bat"
-                    }
-                    post {
-                        always {
-                            junit "**/TEST-*.xml"
-                        }
+                        bat "dotnet restore"
+                        bat "dotnet clean"
+                        bat "dotnet build --configuration Release"
                     }
                 }
                 stage('Test On Linux') {
@@ -24,12 +26,9 @@ pipeline {
                         label "Jenkins_dotnetCore_Linux"
                     }
                     steps {
-                        sh "run-tests.sh"
-                    }
-                    post {
-                        always {
-                            junit "**/TEST-*.xml"
-                        }
+                        sh "dotnet restore"
+                        sh "dotnet clean"
+                        sh "dotnet build --configuration Release"
                     }
                 }
             }
