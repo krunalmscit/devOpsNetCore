@@ -16,7 +16,7 @@ pipeline {
                         label "Jenkins_dotnetCore_windows"
                     }
                     steps {
-                        bat "dotnet restore *.sln"
+                        bat "dotnet restore NetCoreSampleAPP.sln"
                         bat "dotnet clean"
                         bat "dotnet build --configuration Release"
                     }
