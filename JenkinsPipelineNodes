@@ -11,17 +11,17 @@ pipeline {
         }
         stage('Run Tests') {
             parallel {
-                stage('Test On Windows') {
+                stage('Windows') {
                     agent {
                         label "Jenkins_dotnetCore_windows"
                     }
                     steps {
-                        bat "dotnet restore"
+                        bat "dotnet restore *.sln"
                         bat "dotnet clean"
                         bat "dotnet build --configuration Release"
                     }
                 }
-                stage('Test On Linux') {
+                stage('Linux') {
                     agent {
                         label "Jenkins_dotnetCore_Linux"
                     }
