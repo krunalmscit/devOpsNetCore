@@ -9,7 +9,7 @@
       "MonerisTransactionBAL/1.0.0": {
         "dependencies": {
           "System.Data.SqlClient": "4.7.0-preview3.19128.7",
-          "eSELECTplus_dotNet_API": "1.0.19.0"
+          "eSELECTplus_dotNet_API": "1.0.20.0"
         },
         "runtime": {
           "MonerisTransactionBAL.dll": {}
@@ -186,11 +186,11 @@
           }
         }
       },
-      "eSELECTplus_dotNet_API/1.0.19.0": {
+      "eSELECTplus_dotNet_API/1.0.20.0": {
         "runtime": {
           "eSELECTplus_dotNet_API.dll": {
-            "assemblyVersion": "1.0.19.0",
-            "fileVersion": "1.0.19.0"
+            "assemblyVersion": "1.0.20.0",
+            "fileVersion": "1.0.20.0"
           }
         }
       }
@@ -286,7 +286,7 @@
       "path": "system.text.encoding.codepages/4.6.0-preview3.19128.7",
       "hashPath": "system.text.encoding.codepages.4.6.0-preview3.19128.7.nupkg.sha512"
     },
-    "eSELECTplus_dotNet_API/1.0.19.0": {
+    "eSELECTplus_dotNet_API/1.0.20.0": {
       "type": "reference",
       "serviceable": false,
       "sha512": ""

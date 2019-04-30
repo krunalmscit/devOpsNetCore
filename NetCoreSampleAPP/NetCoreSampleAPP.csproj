@@ -6,6 +6,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="CanadaMCPPurchaseTest.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\MonerisTransactionBAL\MonerisTransactionBAL.csproj" />
   </ItemGroup>
 

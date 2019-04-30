@@ -11,6 +11,11 @@ namespace MonerisTransactionBAL
     {
        
         internal string EcrNo;
+
+       
+        public string[] CardHolderAmount { get; set; }
+        public string[] MerchantSettlementAmount { get; set; }
+
         //internal readonly string kountTransactionId;
 
         //Checking repo
@@ -51,12 +56,18 @@ namespace MonerisTransactionBAL
             KountUpdate = 34,
             ApplePayPurchase = 35,
             GooglePayPurchase = 36,
-            GooglePayPreAuth = 37
+            GooglePayPreAuth = 37,
+            MCPPurchase = 38,
+            MCPPreAuth = 39,
+            MCPCompletion = 40,
+            MCPGetRate = 41
         }
+
+    
 
         //public string StoreID { get; set; }
 
-         public string KountTransactionId { get; set; }
+        public string KountTransactionId { get; set; }
         public CustInfo CustomerInfo { get; set; }
         private string StoreId { get; set; }
         private string ApiToken { get; set; }
@@ -69,6 +80,11 @@ namespace MonerisTransactionBAL
         public string CVD { get; set; }
         public string CustId { get; set; }
         public string Amount { get; set; }
+
+        public string MCPCardholderAmount { get; set; }
+
+        public string MCPCardHolderCurrncy { get; set; }
+
         public string DynamicDes { get; set; }
         public CofInfo cofInfo { get; set; }
         public string DataKey { get;    set; }
@@ -99,6 +115,17 @@ namespace MonerisTransactionBAL
         public string GooglePay_protocolVersion { get; internal set; }
         public string GooglePay_signedmessage { get; internal set; }
         public GooglePay_PaymentToken googlePay_PaymentToken { get;  set; }
+        public string MCPRateTransactionType { get;  set; }
+        public MCPRate McpRate { get; set; }
+        public string McpVersion { get; set; }
+        public string MCPRateToken { get; set; }
+
+        public MCPRate SetMCPRate(string[] cardHolderAmount, string[] merchantSettlementAmount)
+        {
+            McpRate.AddCardholderAmount(cardHolderAmount[0], cardHolderAmount[1]);
+            McpRate.AddMerchantSettlementAmount(merchantSettlementAmount[0], merchantSettlementAmount[1]);
+            return McpRate;
+        }
 
         public TransactionBase()
         {
@@ -130,19 +157,23 @@ namespace MonerisTransactionBAL
         //    //CrtpyType = "7";
         //    CVD = "123";
         //}
+
         public class GooglePay_PaymentToken
         {
             public string signature { get; set; }
             public string protocolVersion { get; set; }
             public string signedMessage { get; set; }
         }
+
+        public class Apple_TokenOriginator
+        {
+            public string originatorstoreID;
+            public string originatoreAPIToken;
+        }
+
+        
+
     }
 
-    
-
-    public class Apple_TokenOriginator
-    {
-        public string originatorstoreID;
-        public string originatoreAPIToken;
-    }
+  
 }

@@ -57,7 +57,7 @@
         internal void setQAEnvironment()
         {
             _storeID = "monca00597";
-            _aPIToken = "hxgbcbBXNEASN6wiGLFP";
+            _aPIToken = "7Xq0zhMcaVKBCkAV4rX5";
             Environment = "QA";
         }
     }

@@ -12,6 +12,7 @@ namespace Tests
         string testCaseVersion = "PROD1.2";
         Random r = new Random();
         DateTime now = DateTime.Now;
+        
         string preOrderID, preTxnNumber, preAmount;
         public string Response { get; set; }
         public string TestcaseVersion => "V1.0";
@@ -26,6 +27,7 @@ namespace Tests
             t.ExpDate = now.ToString("yy") + "12";
             t.CVD = "123";
             t.CrtpyType = "7";
+            
         }
 
         [Test, Order(1)]
@@ -36,6 +38,7 @@ namespace Tests
             t.Amount = "1.00";
             Response = (apiTransaction.PerformTransaction(t, ProjectName, testCaseVersion, "TC1"));
             Assert.IsTrue(apiTransaction.IsValidTransaction);
+            
             preTxnNumber = apiTransaction.TxnNumber;
             preOrderID = apiTransaction.OrderId;
             preAmount = apiTransaction.Amount;

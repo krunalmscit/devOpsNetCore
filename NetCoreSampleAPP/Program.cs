@@ -8,7 +8,7 @@ namespace NetCoreSampleAPP
         static void Main(string[] args)
         {
             Console.WriteLine("Hello World!");
-            GoooglePurchase();
+            //GoooglePurchase();
         }
         private static void GoooglePurchase()
         {

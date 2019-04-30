@@ -13,6 +13,7 @@ namespace MonerisTransactionBAL
             this.CvdCheck = new CvdInfo();
             this.AvsCheck = new AvsInfo();
         }
+
         private string storeId { get; set; }
         public string SentXML { get; set; }
         public string Message { get; private set; }
@@ -24,6 +25,7 @@ namespace MonerisTransactionBAL
         public string connectionStringLocalDB => "Data Source=T450-PC06FQ83;Initial Catalog=APITransaction;Integrated Security=True";
 
         public string  kountTransactionsId { get; set; }
+        public string MCPRateToken { get; set; }
 
         // public new string TxnNumber { get; set; }
         //public string OrderId { get; private set; }
@@ -40,7 +42,6 @@ namespace MonerisTransactionBAL
             switch (t.transactionType)
             {
                 case TransactionType.Purchase:
-
                     Purchase purchase = doPurchase(t);
                     mpgReq.SetTransaction(purchase);
                     break;
@@ -150,6 +151,7 @@ namespace MonerisTransactionBAL
                     CardVerification cardVerification = doCardverification(t);
                     mpgReq.SetTransaction(cardVerification);
                     break;
+
                 case TransactionType.VaultTempToken:
                     ResTempAdd resTempAdd = new ResTempAdd();
                     resTempAdd.SetPan(t.PAN);
@@ -268,10 +270,38 @@ namespace MonerisTransactionBAL
                     googlePreauth.SetPaymentToken(t.GooglePay_Signature, t.GooglePay_protocolVersion, t.GooglePay_signedmessage);
                     mpgReq.SetTransaction(googlePreauth);
                     break;
+                case TransactionType.MCPGetRate:
+                    MCPGetRate getRate = new MCPGetRate();
+                    getRate.SetMCPVersion("1.00");
+                    getRate.SetMCPRateTxnType(t.MCPRateTransactionType);
+
+                    MCPRate rate = new MCPRate();
+                    rate.AddCardholderAmount(t.CardHolderAmount[0], t.CardHolderAmount[1]);
+                    rate.AddMerchantSettlementAmount(t.MerchantSettlementAmount[0], t.MerchantSettlementAmount[1]);
+                    getRate.SetMCPRateInfo(rate);
+                    mpgReq.SetTransaction(getRate);
+                    
+                    break;
+                case TransactionType.MCPPurchase:
+                    MCPPurchase mcpPurchase = new MCPPurchase();
+                    mcpPurchase.SetAmount(t.Amount);
+                    mcpPurchase.SetOrderId(t.OrderId);
+                    mcpPurchase.SetPan(t.PAN);
+                    mcpPurchase.SetExpDate(t.ExpDate);
+                    mcpPurchase.SetCryptType(t.CrtpyType);
+                    mcpPurchase.SetMCPRateToken(t.MCPRateToken);
+                    mcpPurchase.SetCardholderAmount(t.MCPCardholderAmount);
+                    mcpPurchase.SetCardholderCurrencyCode(t.MCPCardHolderCurrncy);
+                    mcpPurchase.SetMCPVersion(t.McpVersion);
+                    mpgReq.SetTransaction(mcpPurchase);
+                    
+                    break;
             }
             try
             {
+                
                 response = sendRequestToMonerisGateWay(t, mpgReq);
+                
                 if (!string.IsNullOrEmpty(response))
                     InsertDateToDB(SentXML, response, t.OrderId, t.transactionType.ToString(), Message, testVersion, TestCaseNumber);
             }
@@ -405,7 +435,6 @@ namespace MonerisTransactionBAL
             //    Console.WriteLine(e);
             //}
         }
-
 
         private string sendRequestToMonerisGateWay(TransactionBase t, HttpsPostRequest mpgReq)
         {
@@ -820,9 +849,42 @@ namespace MonerisTransactionBAL
             }
 
 
+            int rates = receipt.GetRatesCount();
+            if (rates > 0)
+            {
+
+               response.Append("RateTxnType = " + receipt.GetRateTxnType());
+               response.Append("MCPRateToken = " + receipt.GetMCPRateToken());
+               response.Append("RateInqStartTime = " + receipt.GetRateInqStartTime());  //The time (unix UTC) of when the rate is requested
+               response.Append("RateInqEndTime = " + receipt.GetRateInqEndTime());  //The time (unix UTC) of when the rate is returned
+               response.Append("RateValidityStartTime = " + receipt.GetRateValidityStartTime());    //The time (unix UTC) of when the rate is valid from
+               response.Append("RateValidityEndTime = " + receipt.GetRateValidityEndTime());    //The time (unix UTC) of when the rate is valid until
+               response.Append("RateValidityPeriod = " + receipt.GetRateValidityPeriod());  //The time in minutes this rate is valid for	            
+               response.Append("ResponseCode = " + receipt.GetResponseCode());
+               response.Append("Message = " + receipt.GetMessage());
+               response.Append("Complete = " + receipt.GetComplete());
+               response.Append("TransDate = " + receipt.GetTransDate());
+               response.Append("TransTime = " + receipt.GetTransTime());
+               response.Append("TimedOut = " + receipt.GetTimedOut());
+                MCPRateToken = receipt.GetMCPRateToken();
+                //RateData
+                for (int index = 0; index < receipt.GetRatesCount(); index++)
+                {
+                   response.Append("MCPRate = " + receipt.GetMCPRate(index));
+                   response.Append("MerchantSettlementCurrency = " + receipt.GetMerchantSettlementCurrency(index));
+                   response.Append("MerchantSettlementAmount = " + receipt.GetMerchantSettlementAmount(index));    //Domestic(CAD) amount
+                   response.Append("CardholderCurrencyCode = " + receipt.GetCardholderCurrencyCode(index));
+                   response.Append("CardholderAmount = " + receipt.GetCardholderAmount(index));    //Foreign amount
+                   response.Append("MCPErrorStatusCode = " + receipt.GetMCPErrorStatusCode(index));
+                   response.Append("MCPErrorMessage = " + receipt.GetMCPErrorMessage(index));
+                }
+
+            }
+
+
 
             string[] ecr2 = receipt.GetTerminalIDs();
-            if (ecr2.Length == 0)
+            if (ecr2.Length == 0 && rates == 0)
             {
                 response.Append("==================== Response ================== \n");
                 response.Append("\nCardType = " + receipt.GetCardType());
@@ -843,8 +905,6 @@ namespace MonerisTransactionBAL
                 response.Append("\nTimedOut = " + receipt.GetTimedOut());
                 response.Append("\nIsVisaDebit = " + receipt.GetIsVisaDebit());
                 response.Append("\nHostId = " + receipt.GetHostId());
-                //response.Append("\nMCPAmount = " + receipt.GetMCPAmount());
-                //response.Append("\nMCPCurrencyCode = " + receipt.GetMCPCurrencyCode());
                 response.Append("\nData Key = " + receipt.GetDataKey());
                 response.Append("\nIssuerId = " + receipt.GetIssuerId());
                 response.Append("\nCVDReposneCode = " + receipt.GetCvvResponseCode());

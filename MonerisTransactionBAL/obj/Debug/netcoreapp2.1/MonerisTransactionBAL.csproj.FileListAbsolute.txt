@@ -1,3 +1,4 @@
+C:\Krunal\devOps\NetCoreRepo\NetCoreSampleAPP\MonerisTransactionBAL\bin\Debug\netcoreapp2.1\ExternalDLL\V1020\eSELECTplus_dotNet_API.dll
 C:\Krunal\devOps\NetCoreRepo\NetCoreSampleAPP\MonerisTransactionBAL\bin\Debug\netcoreapp2.1\MonerisTransactionBAL.deps.json
 C:\Krunal\devOps\NetCoreRepo\NetCoreSampleAPP\MonerisTransactionBAL\bin\Debug\netcoreapp2.1\MonerisTransactionBAL.dll
 C:\Krunal\devOps\NetCoreRepo\NetCoreSampleAPP\MonerisTransactionBAL\bin\Debug\netcoreapp2.1\MonerisTransactionBAL.pdb

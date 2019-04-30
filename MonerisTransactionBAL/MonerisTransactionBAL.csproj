@@ -5,17 +5,30 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="ExternalDLL\" />
+    <Compile Remove="ExternalDLL\V1019\**" />
+    <EmbeddedResource Remove="ExternalDLL\V1019\**" />
+    <None Remove="ExternalDLL\V1019\**" />
   </ItemGroup>
 
+ 
   <ItemGroup>
     <PackageReference Include="System.Data.SqlClient" Version="4.7.0-preview3.19128.7" />
   </ItemGroup>
 
+ 
   <ItemGroup>
     <Reference Include="eSELECTplus_dotNet_API">
-      <HintPath>ExternalDLL\eSELECTplus_dotNet_API.dll</HintPath>
+      <HintPath>ExternalDLL\V1020\eSELECTplus_dotNet_API.dll</HintPath>
     </Reference>
   </ItemGroup>
+
+ 
+  <ItemGroup>
+    <None Update="ExternalDLL\V1020\eSELECTplus_dotNet_API.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+  
 
 </Project>
