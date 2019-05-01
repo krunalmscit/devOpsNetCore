@@ -43,6 +43,10 @@
       "frameworks": {
         "netcoreapp2.1": {
           "dependencies": {
+            "Microsoft.NET.Test.Sdk": {
+              "target": "Package",
+              "version": "[16.0.1, )"
+            },
             "Microsoft.NETCore.App": {
               "suppressParent": "All",
               "target": "Package",
@@ -51,7 +55,7 @@
             },
             "System.Data.SqlClient": {
               "target": "Package",
-              "version": "[4.7.0-preview3.19128.7, )"
+              "version": "[4.7.0-preview4.19212.13, )"
             }
           },
           "imports": [
@@ -105,6 +109,10 @@
       "frameworks": {
         "netcoreapp2.1": {
           "dependencies": {
+            "Microsoft.NET.Test.Sdk": {
+              "target": "Package",
+              "version": "[16.0.1, )"
+            },
             "Microsoft.NETCore.App": {
               "suppressParent": "All",
               "target": "Package",

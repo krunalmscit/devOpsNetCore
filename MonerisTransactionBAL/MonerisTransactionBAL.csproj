@@ -12,7 +12,8 @@
 
  
   <ItemGroup>
-    <PackageReference Include="System.Data.SqlClient" Version="4.7.0-preview3.19128.7" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.0.1" />
+    <PackageReference Include="System.Data.SqlClient" Version="4.7.0-preview4.19212.13" />
   </ItemGroup>
 
  

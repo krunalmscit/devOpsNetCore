@@ -283,7 +283,7 @@
           "Microsoft.NETCore.DotNetAppHost": "2.1.0"
         }
       },
-      "Microsoft.NETCore.Platforms/3.0.0-preview3.19128.7": {
+      "Microsoft.NETCore.Platforms/3.0.0-preview4.19212.13": {
         "type": "package",
         "compile": {
           "lib/netstandard1.0/_._": {}
@@ -562,11 +562,11 @@
           "ref/netstandard1.3/_._": {}
         }
       },
-      "Microsoft.Win32.Registry/4.6.0-preview3.19128.7": {
+      "Microsoft.Win32.Registry/4.6.0-preview4.19212.13": {
         "type": "package",
         "dependencies": {
-          "System.Security.AccessControl": "4.6.0-preview3.19128.7",
-          "System.Security.Principal.Windows": "4.6.0-preview3.19128.7"
+          "System.Security.AccessControl": "4.6.0-preview4.19212.13",
+          "System.Security.Principal.Windows": "4.6.0-preview4.19212.13"
         },
         "compile": {
           "ref/netstandard2.0/_._": {}
@@ -681,7 +681,7 @@
           "lib/netstandard1.0/_._": {}
         }
       },
-      "runtime.native.System.Data.SqlClient.sni/4.6.0-preview3.19128.7": {
+      "runtime.native.System.Data.SqlClient.sni/4.6.0-preview4.19212.13": {
         "type": "package",
         "dependencies": {
           "runtime.win-arm64.runtime.native.System.Data.SqlClient.sni": "4.4.0",
@@ -881,14 +881,14 @@
           "lib/netstandard1.5/System.ComponentModel.TypeConverter.dll": {}
         }
       },
-      "System.Data.SqlClient/4.7.0-preview3.19128.7": {
+      "System.Data.SqlClient/4.7.0-preview4.19212.13": {
         "type": "package",
         "dependencies": {
-          "Microsoft.Win32.Registry": "4.6.0-preview3.19128.7",
-          "System.Diagnostics.DiagnosticSource": "4.6.0-preview3.19128.7",
-          "System.Security.Principal.Windows": "4.6.0-preview3.19128.7",
-          "System.Text.Encoding.CodePages": "4.6.0-preview3.19128.7",
-          "runtime.native.System.Data.SqlClient.sni": "4.6.0-preview3.19128.7"
+          "Microsoft.Win32.Registry": "4.6.0-preview4.19212.13",
+          "System.Diagnostics.DiagnosticSource": "4.6.0-preview4.19212.13",
+          "System.Security.Principal.Windows": "4.6.0-preview4.19212.13",
+          "System.Text.Encoding.CodePages": "4.6.0-preview4.19212.13",
+          "runtime.native.System.Data.SqlClient.sni": "4.6.0-preview4.19212.13"
         },
         "compile": {
           "ref/netcoreapp2.1/System.Data.SqlClient.dll": {}
@@ -918,8 +918,11 @@
           "ref/netstandard1.3/System.Diagnostics.Debug.dll": {}
         }
       },
-      "System.Diagnostics.DiagnosticSource/4.6.0-preview3.19128.7": {
+      "System.Diagnostics.DiagnosticSource/4.6.0-preview4.19212.13": {
         "type": "package",
+        "dependencies": {
+          "System.Runtime.CompilerServices.Unsafe": "4.6.0-preview4.19212.13"
+        },
         "compile": {
           "lib/netstandard1.3/_._": {}
         },
@@ -1376,7 +1379,7 @@
           "ref/netstandard1.5/System.Runtime.dll": {}
         }
       },
-      "System.Runtime.CompilerServices.Unsafe/4.6.0-preview3.19128.7": {
+      "System.Runtime.CompilerServices.Unsafe/4.6.0-preview4.19212.13": {
         "type": "package",
         "compile": {
           "ref/netstandard2.0/_._": {}
@@ -1490,11 +1493,11 @@
           "lib/netstandard1.3/System.Runtime.Serialization.Primitives.dll": {}
         }
       },
-      "System.Security.AccessControl/4.6.0-preview3.19128.7": {
+      "System.Security.AccessControl/4.6.0-preview4.19212.13": {
         "type": "package",
         "dependencies": {
-          "Microsoft.NETCore.Platforms": "3.0.0-preview3.19128.7",
-          "System.Security.Principal.Windows": "4.6.0-preview3.19128.7"
+          "Microsoft.NETCore.Platforms": "3.0.0-preview4.19212.13",
+          "System.Security.Principal.Windows": "4.6.0-preview4.19212.13"
         },
         "compile": {
           "ref/netstandard2.0/_._": {}
@@ -1509,10 +1512,10 @@
           }
         }
       },
-      "System.Security.Principal.Windows/4.6.0-preview3.19128.7": {
+      "System.Security.Principal.Windows/4.6.0-preview4.19212.13": {
         "type": "package",
         "dependencies": {
-          "Microsoft.NETCore.Platforms": "3.0.0-preview3.19128.7"
+          "Microsoft.NETCore.Platforms": "3.0.0-preview4.19212.13"
         },
         "compile": {
           "ref/netstandard2.0/_._": {}
@@ -1542,11 +1545,11 @@
           "ref/netstandard1.3/System.Text.Encoding.dll": {}
         }
       },
-      "System.Text.Encoding.CodePages/4.6.0-preview3.19128.7": {
+      "System.Text.Encoding.CodePages/4.6.0-preview4.19212.13": {
         "type": "package",
         "dependencies": {
-          "Microsoft.NETCore.Platforms": "3.0.0-preview3.19128.7",
-          "System.Runtime.CompilerServices.Unsafe": "4.6.0-preview3.19128.7"
+          "Microsoft.NETCore.Platforms": "3.0.0-preview4.19212.13",
+          "System.Runtime.CompilerServices.Unsafe": "4.6.0-preview4.19212.13"
         },
         "compile": {
           "lib/netstandard2.0/_._": {}
@@ -1791,7 +1794,8 @@
         "type": "project",
         "framework": ".NETCoreApp,Version=v2.1",
         "dependencies": {
-          "System.Data.SqlClient": "4.7.0-preview3.19128.7"
+          "Microsoft.NET.Test.Sdk": "16.0.1",
+          "System.Data.SqlClient": "4.7.0-preview4.19212.13"
         },
         "compile": {
           "bin/placeholder/MonerisTransactionBAL.dll": {}
@@ -2267,17 +2271,17 @@
         "runtime.json"
       ]
     },
-    "Microsoft.NETCore.Platforms/3.0.0-preview3.19128.7": {
-      "sha512": "4/k52fBHvM1RNPoBMik0Y3wIovsUGaTadNGH75iLGjQCJPRq2UBivEkhYrYkIFnu+K9kTYJcmXCDF6SFzMBrqA==",
+    "Microsoft.NETCore.Platforms/3.0.0-preview4.19212.13": {
+      "sha512": "cBcFp3iIi/c6AK9F/aZxbZaNhWGOLSJD071L9tO8JbyODp38NDKsJ38Xq/KJUCt1EUIlqnyF6PdqOngFuCvD1Q==",
       "type": "package",
-      "path": "microsoft.netcore.platforms/3.0.0-preview3.19128.7",
+      "path": "microsoft.netcore.platforms/3.0.0-preview4.19212.13",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
         "LICENSE.TXT",
         "THIRD-PARTY-NOTICES.TXT",
         "lib/netstandard1.0/_._",
-        "microsoft.netcore.platforms.3.0.0-preview3.19128.7.nupkg.sha512",
+        "microsoft.netcore.platforms.3.0.0-preview4.19212.13.nupkg.sha512",
         "microsoft.netcore.platforms.nuspec",
         "runtime.json",
         "useSharedDesignerContext.txt",
@@ -2557,10 +2561,10 @@
         "ref/xamarinwatchos10/_._"
       ]
     },
-    "Microsoft.Win32.Registry/4.6.0-preview3.19128.7": {
-      "sha512": "nEbjnXltvnv6Irrt4NWt0+VKE7wXef8kgCmeTs7ro8zH/qwUkhKtJXPj5JGWSIz7sQ6UfmOkvZ3a+3DcrEua5Q==",
+    "Microsoft.Win32.Registry/4.6.0-preview4.19212.13": {
+      "sha512": "VAkJCUDomhMUG4ey1tLw5jqkXybUancM7BacB9ruV/bD1AR7Lfs3vOyiVQm29CsRCSGV3xa4MmHZQI2PdAPAFg==",
       "type": "package",
-      "path": "microsoft.win32.registry/4.6.0-preview3.19128.7",
+      "path": "microsoft.win32.registry/4.6.0-preview4.19212.13",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -2572,7 +2576,7 @@
         "lib/netstandard1.3/Microsoft.Win32.Registry.dll",
         "lib/netstandard2.0/Microsoft.Win32.Registry.dll",
         "lib/netstandard2.0/Microsoft.Win32.Registry.xml",
-        "microsoft.win32.registry.4.6.0-preview3.19128.7.nupkg.sha512",
+        "microsoft.win32.registry.4.6.0-preview4.19212.13.nupkg.sha512",
         "microsoft.win32.registry.nuspec",
         "ref/net46/Microsoft.Win32.Registry.dll",
         "ref/net461/Microsoft.Win32.Registry.dll",
@@ -2852,16 +2856,16 @@
         "runtime.native.system.nuspec"
       ]
     },
-    "runtime.native.System.Data.SqlClient.sni/4.6.0-preview3.19128.7": {
-      "sha512": "MrxHpiuwHTRi52HJ9xuYq/d4c4eo3Nlrc4MmhOUx+RUKAa0LGDlGl6EU3CzNYD1NmyN+Ye5AdG7N/23pzEZNtQ==",
+    "runtime.native.System.Data.SqlClient.sni/4.6.0-preview4.19212.13": {
+      "sha512": "AfhH96Uw55zh7/isg5tsN1p2kLdTfnCikDfSSto7XHpin+/hmfpm2HcoPtN5vqcAW//DfOjPWqzNPShFWw0gaQ==",
       "type": "package",
-      "path": "runtime.native.system.data.sqlclient.sni/4.6.0-preview3.19128.7",
+      "path": "runtime.native.system.data.sqlclient.sni/4.6.0-preview4.19212.13",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
         "LICENSE.TXT",
         "THIRD-PARTY-NOTICES.TXT",
-        "runtime.native.system.data.sqlclient.sni.4.6.0-preview3.19128.7.nupkg.sha512",
+        "runtime.native.system.data.sqlclient.sni.4.6.0-preview4.19212.13.nupkg.sha512",
         "runtime.native.system.data.sqlclient.sni.nuspec",
         "useSharedDesignerContext.txt",
         "version.txt"
@@ -3412,10 +3416,10 @@
         "system.componentmodel.typeconverter.nuspec"
       ]
     },
-    "System.Data.SqlClient/4.7.0-preview3.19128.7": {
-      "sha512": "ug9geYdy/x6LQItzIHMrk9f8fMgpA1PlVfbJh9Rv02AkBVU/TDLWAX87+BDhWsZdLztdO0hunlj/jPRU/KmXTQ==",
+    "System.Data.SqlClient/4.7.0-preview4.19212.13": {
+      "sha512": "LdgFePekzCw5PmVzxkNTxjohKYPzz7Zor0zIG20qCfcFqHuPNx9HS/AnFLKlHu3nUiSsWiERVHG/LWUag3nCZQ==",
       "type": "package",
-      "path": "system.data.sqlclient/4.7.0-preview3.19128.7",
+      "path": "system.data.sqlclient/4.7.0-preview4.19212.13",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -3491,7 +3495,7 @@
         "runtimes/win/lib/netstandard2.0/System.Data.SqlClient.xml",
         "runtimes/win/lib/uap10.0.16299/System.Data.SqlClient.dll",
         "runtimes/win/lib/uap10.0.16299/System.Data.SqlClient.xml",
-        "system.data.sqlclient.4.7.0-preview3.19128.7.nupkg.sha512",
+        "system.data.sqlclient.4.7.0-preview4.19212.13.nupkg.sha512",
         "system.data.sqlclient.nuspec",
         "useSharedDesignerContext.txt",
         "version.txt"
@@ -3565,10 +3569,10 @@
         "system.diagnostics.debug.nuspec"
       ]
     },
-    "System.Diagnostics.DiagnosticSource/4.6.0-preview3.19128.7": {
-      "sha512": "hU/DHA4wgbcfarWo9CV4tF5mmoEhOCKwTFUGIigNKK+ELSORkMKK8oP+i+OnDkf82jfxn3oPRUUkRNGS1KECig==",
+    "System.Diagnostics.DiagnosticSource/4.6.0-preview4.19212.13": {
+      "sha512": "yVg9MXds/Lh5ghaOQ8FPy4xiYWkAAPyPsJbLvkJRwQmqEi7GR55XFFVCLlU2hZkf41fxiSSIBSzbyU1Ta8yjkA==",
       "type": "package",
-      "path": "system.diagnostics.diagnosticsource/4.6.0-preview3.19128.7",
+      "path": "system.diagnostics.diagnosticsource/4.6.0-preview4.19212.13",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -3584,7 +3588,7 @@
         "lib/netstandard1.3/System.Diagnostics.DiagnosticSource.xml",
         "lib/portable-net45+win8+wpa81/System.Diagnostics.DiagnosticSource.dll",
         "lib/portable-net45+win8+wpa81/System.Diagnostics.DiagnosticSource.xml",
-        "system.diagnostics.diagnosticsource.4.6.0-preview3.19128.7.nupkg.sha512",
+        "system.diagnostics.diagnosticsource.4.6.0-preview4.19212.13.nupkg.sha512",
         "system.diagnostics.diagnosticsource.nuspec",
         "useSharedDesignerContext.txt",
         "version.txt"
@@ -4954,10 +4958,10 @@
         "system.runtime.nuspec"
       ]
     },
-    "System.Runtime.CompilerServices.Unsafe/4.6.0-preview3.19128.7": {
-      "sha512": "6pNB8NAgWC/uTy52WX/gCz9b5FSy27Fti0IrYvF1+L07RR8KKCVjyWdyQxB7lFUz0hij5lP83Ob9OPkVzSGA7g==",
+    "System.Runtime.CompilerServices.Unsafe/4.6.0-preview4.19212.13": {
+      "sha512": "PPd9AFkxov1XKbl3ryiVSFor0IWZjTRuYzEWSqnM4Uralg5toehvee8sLYldbaCugBq5ebuLk7pnMGK1RfNM6Q==",
       "type": "package",
-      "path": "system.runtime.compilerservices.unsafe/4.6.0-preview3.19128.7",
+      "path": "system.runtime.compilerservices.unsafe/4.6.0-preview4.19212.13",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -4973,7 +4977,7 @@
         "ref/netstandard1.0/System.Runtime.CompilerServices.Unsafe.xml",
         "ref/netstandard2.0/System.Runtime.CompilerServices.Unsafe.dll",
         "ref/netstandard2.0/System.Runtime.CompilerServices.Unsafe.xml",
-        "system.runtime.compilerservices.unsafe.4.6.0-preview3.19128.7.nupkg.sha512",
+        "system.runtime.compilerservices.unsafe.4.6.0-preview4.19212.13.nupkg.sha512",
         "system.runtime.compilerservices.unsafe.nuspec",
         "useSharedDesignerContext.txt",
         "version.txt"
@@ -5382,10 +5386,10 @@
         "system.runtime.serialization.primitives.nuspec"
       ]
     },
-    "System.Security.AccessControl/4.6.0-preview3.19128.7": {
-      "sha512": "/Hj/VC24ztOXRqDhNpPEQXBARnvNSj7lXGlduj8YScdKUu0ZsYYR2lKh/v7qSvXBGqXqsozxAIRZwmiBu4rxXQ==",
+    "System.Security.AccessControl/4.6.0-preview4.19212.13": {
+      "sha512": "6CR7JK35I3R5uKUxmVmAYMb87KIBm1ivqdvRMqxqABgE0FJ1XjKyObV6gC9WgIDKxANLCSwXk8URr3ppJisuPw==",
       "type": "package",
-      "path": "system.security.accesscontrol/4.6.0-preview3.19128.7",
+      "path": "system.security.accesscontrol/4.6.0-preview4.19212.13",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -5422,16 +5426,16 @@
         "runtimes/win/lib/netcoreapp2.0/System.Security.AccessControl.xml",
         "runtimes/win/lib/netstandard1.3/System.Security.AccessControl.dll",
         "runtimes/win/lib/uap10.0.16299/_._",
-        "system.security.accesscontrol.4.6.0-preview3.19128.7.nupkg.sha512",
+        "system.security.accesscontrol.4.6.0-preview4.19212.13.nupkg.sha512",
         "system.security.accesscontrol.nuspec",
         "useSharedDesignerContext.txt",
         "version.txt"
       ]
     },
-    "System.Security.Principal.Windows/4.6.0-preview3.19128.7": {
-      "sha512": "3UV2zC9MaLIGQB3x/4cjB4gZxHTDQHf0xW1w0csnT/9kBHz1J8AeW4rashgv+887KjbgDY6csptuR9u59WqJFA==",
+    "System.Security.Principal.Windows/4.6.0-preview4.19212.13": {
+      "sha512": "FlkMEcNY7M231N6Z69X1PxpxBfvvsDc9d/KfgPiD163dpYAtNn5QIZ+XoQmAZoC+nH47LcgPTCJYVaBzDf+U4A==",
       "type": "package",
-      "path": "system.security.principal.windows/4.6.0-preview3.19128.7",
+      "path": "system.security.principal.windows/4.6.0-preview4.19212.13",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -5476,7 +5480,7 @@
         "runtimes/win/lib/netcoreapp2.1/System.Security.Principal.Windows.xml",
         "runtimes/win/lib/netstandard1.3/System.Security.Principal.Windows.dll",
         "runtimes/win/lib/uap10.0.16299/_._",
-        "system.security.principal.windows.4.6.0-preview3.19128.7.nupkg.sha512",
+        "system.security.principal.windows.4.6.0-preview4.19212.13.nupkg.sha512",
         "system.security.principal.windows.nuspec",
         "useSharedDesignerContext.txt",
         "version.txt"
@@ -5550,10 +5554,10 @@
         "system.text.encoding.nuspec"
       ]
     },
-    "System.Text.Encoding.CodePages/4.6.0-preview3.19128.7": {
-      "sha512": "F7Ft2KhIj9xJ84RMTrUWrPBZk8XkVeknynufO4HutkZDjfzkUje9hYqxwlMypbyO3lZXNm8AKRLn+mXsuSUabg==",
+    "System.Text.Encoding.CodePages/4.6.0-preview4.19212.13": {
+      "sha512": "KJkh8gOiqD912KlansFBGMAEcSGJv6HruBzuLTieYrnWkeVYWb1DL4X5KEVdnnwHoiiD6TgMeWD7SFBEtyu8sA==",
       "type": "package",
-      "path": "system.text.encoding.codepages/4.6.0-preview3.19128.7",
+      "path": "system.text.encoding.codepages/4.6.0-preview4.19212.13",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -5584,7 +5588,7 @@
         "runtimes/win/lib/netstandard1.3/System.Text.Encoding.CodePages.dll",
         "runtimes/win/lib/netstandard2.0/System.Text.Encoding.CodePages.dll",
         "runtimes/win/lib/netstandard2.0/System.Text.Encoding.CodePages.xml",
-        "system.text.encoding.codepages.4.6.0-preview3.19128.7.nupkg.sha512",
+        "system.text.encoding.codepages.4.6.0-preview4.19212.13.nupkg.sha512",
         "system.text.encoding.codepages.nuspec",
         "useSharedDesignerContext.txt",
         "version.txt"
