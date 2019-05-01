@@ -7,6 +7,7 @@
 
   <ItemGroup>
     <Compile Remove="CanadaMCPPurchaseTest.cs" />
+    <Compile Remove="Program.cs" />
   </ItemGroup>
 
   <ItemGroup>
