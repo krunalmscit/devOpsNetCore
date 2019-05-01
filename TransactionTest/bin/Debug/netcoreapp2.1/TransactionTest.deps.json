@@ -1,7 +1,7 @@
 {
   "runtimeTarget": {
     "name": ".NETCoreApp,Version=v2.1",
-    "signature": "8476724b6174d61e23be4f62d7f951b13a7b5df9"
+    "signature": "b1dbe439ba4900abf9c4575da654ea5b14fe5769"
   },
   "compilationOptions": {},
   "targets": {
@@ -11,6 +11,7 @@
           "Microsoft.NET.Test.Sdk": "16.0.1",
           "MonerisTransactionBAL": "1.0.0",
           "NUnit": "3.11.0",
+          "NUnit.ConsoleRunner": "3.10.0",
           "NUnit3TestAdapter": "3.13.0"
         },
         "runtime": {
@@ -434,6 +435,7 @@
           }
         }
       },
+      "NUnit.ConsoleRunner/3.10.0": {},
       "NUnit3TestAdapter/3.13.0": {
         "dependencies": {
           "Microsoft.DotNet.InternalAbstractions": "1.0.0",
@@ -1330,6 +1332,13 @@
       "sha512": "sha512-BzGk+u02RCrysmLlSzD+okxzMQ8JRF4eFC/qijDJ8Y/FBdTrTkxkQyTFsYkG1o++pr7QpFAE4VDXDqIfZ/gBAg==",
       "path": "nunit/3.11.0",
       "hashPath": "nunit.3.11.0.nupkg.sha512"
+    },
+    "NUnit.ConsoleRunner/3.10.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-NBnFgApGC7+nP688/j033CYTqTfwnIx0wqjrODtoznwZ2lxKqvLxjxNsO9XstgmC5sUBSU2QsLVYd/9IJueMDQ==",
+      "path": "nunit.consolerunner/3.10.0",
+      "hashPath": "nunit.consolerunner.3.10.0.nupkg.sha512"
     },
     "NUnit3TestAdapter/3.13.0": {
       "type": "package",

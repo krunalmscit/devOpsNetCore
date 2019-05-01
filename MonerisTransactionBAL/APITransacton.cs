@@ -296,6 +296,20 @@ namespace MonerisTransactionBAL
                     mpgReq.SetTransaction(mcpPurchase);
                     
                     break;
+
+                case TransactionType.MCPPreAuth:
+                    MCPPreAuth mcpPreAut = new MCPPreAuth();
+                    mcpPreAut.SetAmount(t.Amount);
+                    mcpPreAut.SetOrderId(t.OrderId);
+                    mcpPreAut.SetPan(t.PAN);
+                    mcpPreAut.SetExpDate(t.ExpDate);
+                    mcpPreAut.SetCryptType(t.CrtpyType);
+                    mcpPreAut.SetMCPRateToken(t.MCPRateToken);
+                    mcpPreAut.SetCardholderAmount(t.MCPCardholderAmount);
+                    mcpPreAut.SetCardholderCurrencyCode(t.MCPCardHolderCurrncy);
+                    mcpPreAut.SetMCPVersion(t.McpVersion);
+                    mpgReq.SetTransaction(mcpPreAut);
+                    break;
             }
             try
             {

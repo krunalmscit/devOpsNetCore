@@ -648,6 +648,9 @@
           "build/NUnit.props": {}
         }
       },
+      "NUnit.ConsoleRunner/3.10.0": {
+        "type": "package"
+      },
       "NUnit3TestAdapter/3.13.0": {
         "type": "package",
         "dependencies": {
@@ -2787,6 +2790,32 @@
         "lib/netstandard2.0/nunit.framework.xml",
         "nunit.3.11.0.nupkg.sha512",
         "nunit.nuspec"
+      ]
+    },
+    "NUnit.ConsoleRunner/3.10.0": {
+      "sha512": "NBnFgApGC7+nP688/j033CYTqTfwnIx0wqjrODtoznwZ2lxKqvLxjxNsO9XstgmC5sUBSU2QsLVYd/9IJueMDQ==",
+      "type": "package",
+      "path": "nunit.consolerunner/3.10.0",
+      "hasTools": true,
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "CHANGES.txt",
+        "LICENSE.txt",
+        "NOTICES.txt",
+        "nunit.consolerunner.3.10.0.nupkg.sha512",
+        "nunit.consolerunner.nuspec",
+        "tools/Mono.Cecil.dll",
+        "tools/nunit-agent-x86.exe",
+        "tools/nunit-agent-x86.exe.config",
+        "tools/nunit-agent.exe",
+        "tools/nunit-agent.exe.config",
+        "tools/nunit.engine.api.dll",
+        "tools/nunit.engine.api.xml",
+        "tools/nunit.engine.dll",
+        "tools/nunit.nuget.addins",
+        "tools/nunit3-console.exe",
+        "tools/nunit3-console.exe.config"
       ]
     },
     "NUnit3TestAdapter/3.13.0": {
@@ -6283,6 +6312,7 @@
       "Microsoft.NETCore.App >= 2.1.0",
       "MonerisTransactionBAL >= 1.0.0",
       "NUnit >= 3.11.0",
+      "NUnit.ConsoleRunner >= 3.10.0",
       "NUnit3TestAdapter >= 3.13.0"
     ]
   },
@@ -6347,6 +6377,10 @@
           "NUnit": {
             "target": "Package",
             "version": "[3.11.0, )"
+          },
+          "NUnit.ConsoleRunner": {
+            "target": "Package",
+            "version": "[3.10.0, )"
           },
           "NUnit3TestAdapter": {
             "target": "Package",

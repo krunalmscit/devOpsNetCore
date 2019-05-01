@@ -67,5 +67,33 @@ namespace TransactionTest
             Assert.IsTrue(apiTransaction.IsValidTransaction);
 
         }
+
+        [Test, Order(3)]
+        public void MultiCurrencyPurchaseWithoutRateToken()
+        {
+            t.transactionType = TransactionBase.TransactionType.MCPPurchase;
+            t.OrderId = t.OrderId = "MCPPurchase" + now.Year + now.ToString("MM") + now.ToString("dd") + "_" + now.Hour + now.Minute + now.Second + r.Next(0, 999999);
+            t.MCPRateToken = PurchaseRateToken;
+            t.MCPCardholderAmount = "500";
+            t.MCPCardHolderCurrncy = "840";
+            Response = (apiTransaction.PerformTransaction(t, ProjectName, testCaseVersion, "TC2"));
+            Assert.IsTrue(apiTransaction.IsValidTransaction);
+        }
+
+        [Test, Order(4)]
+        public void MultiCurrencyPreAuthWithOutrateToken()
+        {
+            t.transactionType = TransactionBase.TransactionType.MCPPreAuth;
+            t.OrderId = t.OrderId = "MCPPurchase" + now.Year + now.ToString("MM") + now.ToString("dd") + "_" + now.Hour + now.Minute + now.Second + r.Next(0, 999999);
+            t.MCPRateToken = PurchaseRateToken;
+            t.MCPCardholderAmount = "500";
+            t.MCPCardHolderCurrncy = "840";
+            t.MCPRateToken = PurchaseRateToken;
+            Response = (apiTransaction.PerformTransaction(t, ProjectName, testCaseVersion, "TC2"));
+            preOrderID = apiTransaction.OrderId;
+            preTxnNumber = apiTransaction.TxnNumber;
+            Assert.IsTrue(apiTransaction.IsValidTransaction);
+
+        }
     }
 }

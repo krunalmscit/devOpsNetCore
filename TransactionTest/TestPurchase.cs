@@ -9,7 +9,7 @@ namespace Tests
 
         TransactionBase t = new TransactionBase();
         APITransacton apiTransaction = new APITransacton();
-        string testCaseVersion = "PROD1.2";
+        string testCaseVersion = "DLL v1020 -1 ";
         Random r = new Random();
         DateTime now = DateTime.Now;
         
