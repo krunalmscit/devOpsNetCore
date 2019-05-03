@@ -11,13 +11,10 @@ namespace MonerisTransactionBAL
     {
        
         internal string EcrNo;
+        internal CofInfo cInfo;
 
-       
         public string[] CardHolderAmount { get; set; }
-        public string[] MerchantSettlementAmount { get; set; }
-
-        //internal readonly string kountTransactionId;
-
+        public string[] MerchantSettlementAmount { get; set; }        
         //Checking repo
         public enum TransactionType
         {
@@ -60,13 +57,14 @@ namespace MonerisTransactionBAL
             MCPPurchase = 38,
             MCPPreAuth = 39,
             MCPCompletion = 40,
-            MCPGetRate = 41
-        }
-
-    
-
-        //public string StoreID { get; set; }
-
+            MCPGetRate = 41,
+            MCPPurchaseCorrecetion = 42,
+            MCPRefund = 43,
+            MCPIndependentRefund = 44,
+            MCPResPurchase = 45,
+            MCPResIndependentRefund = 46,
+            MCPResPreAuth = 47
+        }    
         public string KountTransactionId { get; set; }
         public CustInfo CustomerInfo { get; set; }
         private string StoreId { get; set; }
@@ -80,11 +78,8 @@ namespace MonerisTransactionBAL
         public string CVD { get; set; }
         public string CustId { get; set; }
         public string Amount { get; set; }
-
         public string MCPCardholderAmount { get; set; }
-
         public string MCPCardHolderCurrncy { get; set; }
-
         public string DynamicDes { get; set; }
         public CofInfo cofInfo { get; set; }
         public string DataKey { get;    set; }
@@ -119,6 +114,8 @@ namespace MonerisTransactionBAL
         public MCPRate McpRate { get; set; }
         public string McpVersion { get; set; }
         public string MCPRateToken { get; set; }
+        public bool? SetAVSInfo { get; set; }
+        public bool? SetCustInfo { get; internal set; }
 
         public MCPRate SetMCPRate(string[] cardHolderAmount, string[] merchantSettlementAmount)
         {

@@ -10,3 +10,5 @@ C:\Krunal\devOps\NetCoreRepo\NetCoreSampleAPP\MonerisTransactionBAL\obj\Debug\ne
 C:\Krunal\devOps\NetCoreRepo\NetCoreSampleAPP\MonerisTransactionBAL\obj\Debug\netcoreapp2.1\MonerisTransactionBAL.csproj.CopyComplete
 C:\Krunal\devOps\NetCoreRepo\NetCoreSampleAPP\MonerisTransactionBAL\obj\Debug\netcoreapp2.1\MonerisTransactionBAL.dll
 C:\Krunal\devOps\NetCoreRepo\NetCoreSampleAPP\MonerisTransactionBAL\obj\Debug\netcoreapp2.1\MonerisTransactionBAL.pdb
+C:\Krunal\devOps\NetCoreRepo\NetCoreSampleAPP\MonerisTransactionBAL\bin\Debug\netcoreapp2.1\MonerisTransactionBAL.runtimeconfig.json
+C:\Krunal\devOps\NetCoreRepo\NetCoreSampleAPP\MonerisTransactionBAL\bin\Debug\netcoreapp2.1\MonerisTransactionBAL.runtimeconfig.dev.json

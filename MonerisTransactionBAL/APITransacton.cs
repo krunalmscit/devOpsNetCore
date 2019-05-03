@@ -20,25 +20,25 @@ namespace MonerisTransactionBAL
         public string ProjectName { get; internal set; }
         public string apiToken { get; set; }
         public bool IsValidTransaction { get; set; }
-
         public string connectionStringAWS => "Data Source=52.14.31.135;Initial Catalog=APITransaction;User ID=KrunalP2;Password=Shiva@1984";
         public string connectionStringLocalDB => "Data Source=T450-PC06FQ83;Initial Catalog=APITransaction;Integrated Security=True";
-
-        public string  kountTransactionsId { get; set; }
-        public string MCPRateToken { get; set; }
+        public string kountTransactionsId { get; set; }
+        public bool? MCPErrorCodeshown { get; set; }
+        public string response { get; set; }
+        //public string MCPRateToken { get; set; }
 
         // public new string TxnNumber { get; set; }
         //public string OrderId { get; private set; }
 
         //public string DataKey { get; set; }
-        public string PerformTransaction(TransactionBase t, string appName = "Test", string testVersion = "default", string TestCaseNumber = "TC# Default")
+        public string PerformTransaction(TransactionBase t, string appName = "Test", string testVersion = "default", string TestCaseNumber = null)
         {
 
             HttpsPostRequest mpgReq = new HttpsPostRequest();
             this.ProjectName = appName;
             storeId = t._storeID;
             apiToken = t._aPIToken;
-            string response;
+
             switch (t.transactionType)
             {
                 case TransactionType.Purchase:
@@ -94,9 +94,24 @@ namespace MonerisTransactionBAL
 
 
                 case TransactionType.VaultAddCC:
-                    ResAddCC resaddcc = doResAddCC(t);
+                    ResAddCC resaddcc = new ResAddCC();
+                    resaddcc.SetPan(t.PAN);
+                    resaddcc.SetExpDate(t.ExpDate);
+                    resaddcc.SetCryptType(t.CrtpyType);
+                    //resaddcc.SetCofInfo(setCardOnFile("C","0",this.IssuerId));
+                    resaddcc.SetCofInfo(t.cInfo);
+                    if (t.cInfo != null)
+                    {
+                        AvsInfo avsCheck2 = new AvsInfo();
+                        avsCheck2.SetAvsStreetNumber("212");
+                        avsCheck2.SetAvsStreetName("Payton Street");
+                        avsCheck2.SetAvsZipCode("M1M1M1");
+                        resaddcc.SetAvsInfo(avsCheck2);
+                    }
+                    resaddcc.SetDataKeyFormat(t.DataKeyFormat);
                     mpgReq.SetTransaction(resaddcc);
                     break;
+
                 case TransactionType.VaultAddToken:
                     ResAddToken rAddToken = new ResAddToken();
                     rAddToken.SetDataKey(t.DataKey);
@@ -106,8 +121,8 @@ namespace MonerisTransactionBAL
                         rAddToken.SetAvsInfo(t.AvsCheck);
                     mpgReq.SetTransaction(rAddToken);
                     break;
-                case TransactionType.VaultAddHPPToken:
 
+                case TransactionType.VaultAddHPPToken:
                     ResAddToken resAddToken = new ResAddToken();
                     resAddToken.SetDataKey(t.DataKey);
                     resAddToken.SetCryptType(t.CrtpyType);
@@ -133,6 +148,7 @@ namespace MonerisTransactionBAL
 
                 case TransactionType.VaultPurchase:
                     ResPurchaseCC resPurchaseCC = doResPurchase(t);
+                    resPurchaseCC.SetCryptType(t.CrtpyType);
                     mpgReq.SetTransaction(resPurchaseCC);
                     break;
 
@@ -270,6 +286,7 @@ namespace MonerisTransactionBAL
                     googlePreauth.SetPaymentToken(t.GooglePay_Signature, t.GooglePay_protocolVersion, t.GooglePay_signedmessage);
                     mpgReq.SetTransaction(googlePreauth);
                     break;
+
                 case TransactionType.MCPGetRate:
                     MCPGetRate getRate = new MCPGetRate();
                     getRate.SetMCPVersion("1.00");
@@ -277,11 +294,14 @@ namespace MonerisTransactionBAL
 
                     MCPRate rate = new MCPRate();
                     rate.AddCardholderAmount(t.CardHolderAmount[0], t.CardHolderAmount[1]);
-                    rate.AddMerchantSettlementAmount(t.MerchantSettlementAmount[0], t.MerchantSettlementAmount[1]);
+                    if (t.MerchantSettlementAmount != null)
+                    {
+                        rate.AddMerchantSettlementAmount(t.MerchantSettlementAmount[0], t.MerchantSettlementAmount[1]);
+                    }
                     getRate.SetMCPRateInfo(rate);
                     mpgReq.SetTransaction(getRate);
-                    
                     break;
+
                 case TransactionType.MCPPurchase:
                     MCPPurchase mcpPurchase = new MCPPurchase();
                     mcpPurchase.SetAmount(t.Amount);
@@ -293,8 +313,27 @@ namespace MonerisTransactionBAL
                     mcpPurchase.SetCardholderAmount(t.MCPCardholderAmount);
                     mcpPurchase.SetCardholderCurrencyCode(t.MCPCardHolderCurrncy);
                     mcpPurchase.SetMCPVersion(t.McpVersion);
+                    mcpPurchase.SetCustInfo(t.CustomerInfo);
+                    if (t.SetAVSInfo == true)
+                    {   
+                        mcpPurchase.SetAvsInfo(setValidAVSInfo());
+                    }
+                    if (t.SetCustInfo == true)
+                    {
+                        mcpPurchase.SetCustInfo(setCustomerInfo());
+                    }
+            
                     mpgReq.SetTransaction(mcpPurchase);
-                    
+                    break;
+
+                case TransactionType.MCPPurchaseCorrecetion:
+                    MCPPurchaseCorrection purchaseCorrection = new MCPPurchaseCorrection();
+                    purchaseCorrection.SetOrderId(t.OrderId);
+                    purchaseCorrection.SetTxnNumber(t.TxnNumber);
+                    purchaseCorrection.SetCustomerID(t.CustId);
+                    purchaseCorrection.SetDynamicDescriptor(t.DynamicDes);
+                    purchaseCorrection.SetCryptType(t.CrtpyType);
+                    mpgReq.SetTransaction(purchaseCorrection);
                     break;
 
                 case TransactionType.MCPPreAuth:
@@ -307,22 +346,99 @@ namespace MonerisTransactionBAL
                     mcpPreAut.SetMCPRateToken(t.MCPRateToken);
                     mcpPreAut.SetCardholderAmount(t.MCPCardholderAmount);
                     mcpPreAut.SetCardholderCurrencyCode(t.MCPCardHolderCurrncy);
-                    mcpPreAut.SetMCPVersion(t.McpVersion);
+                    mcpPreAut.SetMCPVersion(t.McpVersion);                    
                     mpgReq.SetTransaction(mcpPreAut);
+                    break;
+
+                case TransactionType.MCPCompletion:
+                    MCPCompletion completion = new MCPCompletion();
+                    completion.SetAmount(t.Amount);
+                    completion.SetCardholderAmount(t.MCPCardholderAmount);
+                    completion.SetCardholderCurrencyCode(t.MCPCardHolderCurrncy);
+                    completion.SetOrderId(t.OrderId);
+                    completion.SetTxnNumber(t.TxnNumber);
+                    completion.SetCustId(t.CustId);
+                    completion.SetDynamicDescriptor(t.DynamicDes);
+                    completion.SetMCPRateToken(t.MCPRateToken);
+                    completion.SetCryptType(t.CrtpyType);
+                    mpgReq.SetTransaction(completion);
+                    break;
+
+                case TransactionType.MCPRefund:
+                    MCPRefund refundMcp = new MCPRefund();
+                    refundMcp.SetOrderId(t.OrderId);
+                    refundMcp.SetTxnNumber(t.TxnNumber);
+                    refundMcp.SetDynamicDescriptor(t.DynamicDes);
+                    refundMcp.SetCustId(t.CustId);
+                    refundMcp.SetCardholderAmount(t.MCPCardholderAmount);
+                    refundMcp.SetCardholderCurrencyCode(t.MCPCardHolderCurrncy);
+                    refundMcp.SetCryptType(t.CrtpyType);
+                    refundMcp.SetMCPRateToken(t.MCPRateToken);
+                    mpgReq.SetTransaction(refundMcp);
+                    break;
+
+                case TransactionType.MCPIndependentRefund:
+                    MCPIndependentRefund indRefundMCP = new MCPIndependentRefund();
+                    indRefundMCP.SetOrderId(t.OrderId);
+                    indRefundMCP.SetAmount(t.Amount);
+                    indRefundMCP.SetCardholderAmount(t.MCPCardholderAmount);
+                    indRefundMCP.SetCardholderCurrencyCode(t.MCPCardHolderCurrncy);
+                    indRefundMCP.SetMCPRateToken(t.MCPRateToken);
+                    indRefundMCP.SetCustId(t.CustId);
+                    indRefundMCP.SetDynamicDescriptor(t.DynamicDes);
+                    mpgReq.SetTransaction(indRefundMCP);
+                    break;
+
+                case TransactionType.MCPResPurchase:
+                    MCPResPurchaseCC resPurchase = new MCPResPurchaseCC();
+                    resPurchase.SetCryptType(t.CrtpyType);
+                    resPurchase.SetDataKey(t.DataKey);
+                    resPurchase.SetOrderId(t.OrderId);
+                    resPurchase.SetAmount(t.Amount);
+                    resPurchase.SetDynamicDescriptor(t.DynamicDes);
+                    resPurchase.SetMCPRateToken(t.MCPRateToken);
+                    resPurchase.SetCardholderAmount(t.MCPCardholderAmount);
+                    resPurchase.SetCardholderCurrencyCode(t.MCPCardHolderCurrncy);
+                    mpgReq.SetTransaction(resPurchase);
+                    break;
+                case TransactionType.MCPResPreAuth:
+                    MCPResPreauthCC resPreAuth = new MCPResPreauthCC();
+                    resPreAuth.SetCryptType(t.CrtpyType);
+                    resPreAuth.SetDataKey(t.DataKey);
+                    resPreAuth.SetOrderId(t.OrderId);
+                    resPreAuth.SetAmount(t.Amount);
+                    resPreAuth.SetDynamicDescriptor(t.DynamicDes);
+                    resPreAuth.SetMCPRateToken(t.MCPRateToken);
+                    resPreAuth.SetCardholderAmount(t.MCPCardholderAmount);
+                    resPreAuth.SetCardholderCurrencyCode(t.MCPCardHolderCurrncy);
+                    mpgReq.SetTransaction(resPreAuth);
+                    break;
+                case TransactionType.MCPResIndependentRefund:
+                    MCPResIndRefundCC mcpResIndRefundCC = new MCPResIndRefundCC();
+                    mcpResIndRefundCC.SetOrderId(t.OrderId);
+                    mcpResIndRefundCC.SetCustId(t.CustId);
+                    mcpResIndRefundCC.SetAmount(t.Amount);
+                    mcpResIndRefundCC.SetCryptType(t.CrtpyType);
+                    mcpResIndRefundCC.SetDataKey(t.DataKey);
+
+                    //MCP Fields
+                    mcpResIndRefundCC.SetMCPVersion(t.McpVersion);
+                    mcpResIndRefundCC.SetCardholderAmount(t.MCPCardholderAmount);
+                    mcpResIndRefundCC.SetCardholderCurrencyCode(t.MCPCardHolderCurrncy);
+                    mpgReq.SetTransaction(mcpResIndRefundCC);
                     break;
             }
             try
             {
-                
+
                 response = sendRequestToMonerisGateWay(t, mpgReq);
-                
+
                 if (!string.IsNullOrEmpty(response))
                     InsertDateToDB(SentXML, response, t.OrderId, t.transactionType.ToString(), Message, testVersion, TestCaseNumber);
             }
-            catch (Exception esc)
+            catch (Exception)
             {
-                response = "There is some issue with Code.";
-                throw;
+                return "There is some issue with Code.";
             }
             return response;
         }
@@ -331,7 +447,7 @@ namespace MonerisTransactionBAL
         {
             kount_inquiry.SetKountMerchantId("760000"); //6 digit - This is a UNIQUE local identifier used by the merchant to identify the kount inquiry request
             kount_inquiry.SetKountApiKey("eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiI3NjAwMDAiLCJhdWQiOiJLb3VudC4xIiwiaWF0IjoxNDg3MTcwMjQ4LCJzY3AiOnsia2EiOm51bGwsImtjIjpudWxsLCJhcGkiOnRydWUsInJpcyI6dHJ1ZX19.LaNqPR2GPYRbiZV0-0KArp325fvFaTBDMVZkwWp1I-U"); //214 character max - This is a UNIQUE local identifier used by the merchant to identify the kount inquiry request
-                                                   // kount_inquiry.SetOrderId("nqa-orderidkount-1"); //64 characters max - This is a UNIQUE local identifier used by the merchant to identify the transaction e.g. purchase order number.
+                                                                                                                                                                                                                                                                   // kount_inquiry.SetOrderId("nqa-orderidkount-1"); //64 characters max - This is a UNIQUE local identifier used by the merchant to identify the transaction e.g. purchase order number.
             kount_inquiry.SetCallCenterInd("N"); //Y or N - Risk Inquiry originating from call center environment
             kount_inquiry.SetCurrency("CAD"); //country of currency submitted on order
             kount_inquiry.SetEmail("test@gmail.com"); //email address submitted by the customer
@@ -476,11 +592,13 @@ namespace MonerisTransactionBAL
                 mpgReq?.Send();
                 string s1 = mpgReq.getResponseXML();
                 SentXML = mpgReq.getXML();
+                Receipt res = mpgReq.GetReceipt();
                 response = generateReceipt(mpgReq.GetReceipt());
                 return response;
             }
             catch (Exception erre)
             {
+                IsValidTransaction = false;
                 return string.Empty;
             }
         }
@@ -765,7 +883,7 @@ namespace MonerisTransactionBAL
                             cmd.Parameters.AddWithValue("@storeID", storeId);
                             cmd.Parameters.AddWithValue("@apiToken", apiToken);
                             cmd.Parameters.AddWithValue("@transactionType", transactionType);
-                            cmd.Parameters.AddWithValue("@message", message);
+                            cmd.Parameters.AddWithValue("@message", message ?? (object)DBNull.Value);
                             cmd.Parameters.AddWithValue("@tt", System.DateTime.Now);
                             cmd.Parameters.AddWithValue("@projectName", ProjectName ?? (object)DBNull.Value);
                             cmd.Parameters.AddWithValue("@version", ver ?? (object)DBNull.Value);
@@ -853,11 +971,18 @@ namespace MonerisTransactionBAL
             {
                 IsValidTransaction = true;
             }
-            else if (cofInfo == null && (!string.IsNullOrEmpty(receipt.GetResponseCode()) && Convert.ToInt32(receipt.GetResponseCode()) < 50))
+            else if (!string.IsNullOrEmpty(receipt.GetResponseCode()))
             {
-                IsValidTransaction = true;
+                if (cofInfo == null && (!string.IsNullOrEmpty(receipt.GetResponseCode())))
+                {
+                    if (receipt.GetResponseCode().Trim() != "null")
+                    {
+                        IsValidTransaction = (Convert.ToInt32(receipt.GetResponseCode()) < 50);
+                    }
+                    
+                }
             }
-            else
+            else if (string.IsNullOrEmpty(receipt.GetResponseCode()))
             {
                 IsValidTransaction = false;
             }
@@ -867,30 +992,34 @@ namespace MonerisTransactionBAL
             if (rates > 0)
             {
 
-               response.Append("RateTxnType = " + receipt.GetRateTxnType());
-               response.Append("MCPRateToken = " + receipt.GetMCPRateToken());
-               response.Append("RateInqStartTime = " + receipt.GetRateInqStartTime());  //The time (unix UTC) of when the rate is requested
-               response.Append("RateInqEndTime = " + receipt.GetRateInqEndTime());  //The time (unix UTC) of when the rate is returned
-               response.Append("RateValidityStartTime = " + receipt.GetRateValidityStartTime());    //The time (unix UTC) of when the rate is valid from
-               response.Append("RateValidityEndTime = " + receipt.GetRateValidityEndTime());    //The time (unix UTC) of when the rate is valid until
-               response.Append("RateValidityPeriod = " + receipt.GetRateValidityPeriod());  //The time in minutes this rate is valid for	            
-               response.Append("ResponseCode = " + receipt.GetResponseCode());
-               response.Append("Message = " + receipt.GetMessage());
-               response.Append("Complete = " + receipt.GetComplete());
-               response.Append("TransDate = " + receipt.GetTransDate());
-               response.Append("TransTime = " + receipt.GetTransTime());
-               response.Append("TimedOut = " + receipt.GetTimedOut());
+                response.Append("RateTxnType = " + receipt.GetRateTxnType());
+                response.Append("MCPRateToken = " + receipt.GetMCPRateToken());
+                response.Append("RateInqStartTime = " + receipt.GetRateInqStartTime());  //The time (unix UTC) of when the rate is requested
+                response.Append("RateInqEndTime = " + receipt.GetRateInqEndTime());  //The time (unix UTC) of when the rate is returned
+                response.Append("RateValidityStartTime = " + receipt.GetRateValidityStartTime());    //The time (unix UTC) of when the rate is valid from
+                response.Append("RateValidityEndTime = " + receipt.GetRateValidityEndTime());    //The time (unix UTC) of when the rate is valid until
+                response.Append("RateValidityPeriod = " + receipt.GetRateValidityPeriod());  //The time in minutes this rate is valid for	            
+                response.Append("ResponseCode = " + receipt.GetResponseCode());
+                response.Append("Message = " + receipt.GetMessage());
+                response.Append("Complete = " + receipt.GetComplete());
+                response.Append("TransDate = " + receipt.GetTransDate());
+                response.Append("TransTime = " + receipt.GetTransTime());
+                response.Append("TimedOut = " + receipt.GetTimedOut());
                 MCPRateToken = receipt.GetMCPRateToken();
                 //RateData
                 for (int index = 0; index < receipt.GetRatesCount(); index++)
                 {
-                   response.Append("MCPRate = " + receipt.GetMCPRate(index));
-                   response.Append("MerchantSettlementCurrency = " + receipt.GetMerchantSettlementCurrency(index));
-                   response.Append("MerchantSettlementAmount = " + receipt.GetMerchantSettlementAmount(index));    //Domestic(CAD) amount
-                   response.Append("CardholderCurrencyCode = " + receipt.GetCardholderCurrencyCode(index));
-                   response.Append("CardholderAmount = " + receipt.GetCardholderAmount(index));    //Foreign amount
-                   response.Append("MCPErrorStatusCode = " + receipt.GetMCPErrorStatusCode(index));
-                   response.Append("MCPErrorMessage = " + receipt.GetMCPErrorMessage(index));
+                    response.Append("MCPRate = " + receipt.GetMCPRate(index));
+                    response.Append("MerchantSettlementCurrency = " + receipt.GetMerchantSettlementCurrency(index));
+                    response.Append("MerchantSettlementAmount = " + receipt.GetMerchantSettlementAmount(index));    //Domestic(CAD) amount
+                    response.Append("CardholderCurrencyCode = " + receipt.GetCardholderCurrencyCode(index));
+                    response.Append("CardholderAmount = " + receipt.GetCardholderAmount(index));    //Foreign amount
+                    response.Append("MCPErrorStatusCode = " + receipt.GetMCPErrorStatusCode(index));
+                    response.Append("MCPErrorMessage = " + receipt.GetMCPErrorMessage(index));
+                    if (string.IsNullOrEmpty(receipt.GetMCPErrorStatusCode(index))) {
+                        MCPErrorCodeshown = true;
+                    }
+                    else { MCPErrorCodeshown = false; }
                 }
 
             }
@@ -930,6 +1059,8 @@ namespace MonerisTransactionBAL
                 response.Append("\nFee Amount = " + receipt.GetFeeAmount());
                 response.Append("\nFee Type = " + receipt.GetFeeType());
                 response.Append("\nFee Rate = " + receipt.GetFeeRate());
+                response.Append("MCPErrorStatusCode = " + receipt.GetMCPErrorStatusCode());
+                response.Append("MCPErrorMessage = " + receipt.GetMCPErrorMessage());
                 //response.Append("\nTerminal = " + receipt.GetTerminalIDs());
                 DataKey = receipt.GetDataKey();
                 IssuerId = receipt.GetIssuerId();
@@ -984,7 +1115,7 @@ namespace MonerisTransactionBAL
             return cofIntial;
         }
 
-        public AvsInfo setValidAVSInfo()
+        public  AvsInfo setValidAVSInfo()
         {
             AvsInfo avsCheck = new AvsInfo();
             avsCheck.SetAvsStreetNumber("212");
